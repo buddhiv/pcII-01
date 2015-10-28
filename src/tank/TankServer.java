@@ -31,6 +31,7 @@ public class TankServer extends Thread {
         cli.run("JOIN#");//request to join the game server
 
         ClientUI cgui = new ClientUI();
+        cgui.setVisible(true);
         mapObservable.addObserver(cgui);
 
         while (true) {
