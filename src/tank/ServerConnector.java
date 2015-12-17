@@ -57,6 +57,7 @@ public class ServerConnector extends Thread {
                 processString(string);
 
                 mapControl.printMap();
+                mapObservable.update(mapControl.getMap());
             } catch (IOException ex) {
                 Logger.getLogger(ServerConnector.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -90,6 +91,6 @@ public class ServerConnector extends Thread {
         }
         
 //        update map in the GUI
-        mapObservable.update(mapControl.getMap());
+//        mapObservable.update(mapControl.getMap());
     }
 }
