@@ -32,6 +32,7 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
 
         this.cli = client;
 
+        //sets the array of labels
         JLabel[] labels1 = {jLabel12, jLabel21, jLabel31, jLabel41, jLabel51, jLabel61, jLabel71, jLabel81, jLabel91, jLabel111};
         JLabel[] labels2 = {jLabel11, jLabel22, jLabel32, jLabel42, jLabel52, jLabel62, jLabel72, jLabel82, jLabel92, jLabel112};
         JLabel[] labels3 = {jLabel14, jLabel23, jLabel33, jLabel43, jLabel53, jLabel63, jLabel73, jLabel83, jLabel93, jLabel113};
@@ -46,11 +47,17 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
         JLabel[][] l = {labels1, labels2, labels3, labels4, labels5, labels6, labels7, labels8, labels9, labels10};
         labels = l;
 
+        //set stone, water, brick counts
         jLabel7.setText("" + MapController.getBricks());
         jLabel8.setText("" + MapController.getStones());
         jLabel9.setText("" + MapController.getWaters());
         jLabel10.setText("" + MapController.getCoinTotal());
-
+        
+        //set label images
+        
+        
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
@@ -1094,6 +1101,6 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
 
     @Override
     public void updateInterface(Cell map[][]) {
-
+        
     }
 }
