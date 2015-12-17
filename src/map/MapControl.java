@@ -22,6 +22,7 @@ public class MapControl {
 
     private Cell[][] map;
     private Player[] players;
+    private int brickCount = 0, stoneCount = 0, waterCount = 0;
 
     public MapControl() {
         map = new Cell[10][10];
@@ -58,6 +59,8 @@ public class MapControl {
 //            i for bricks
             Brick brick = new Brick(x, y);
             map[y][x].setCellObject(brick);
+
+            brickCount++;
         }
 
 //        tokenize string for stones
@@ -72,6 +75,8 @@ public class MapControl {
 //            2 for stones
             Stone stone = new Stone(x, y);
             map[y][x].setCellObject(stone);
+
+            stoneCount++;
         }
 
 //        tokenize string for water
@@ -86,6 +91,8 @@ public class MapControl {
 //            3 for water
             Water w = new Water(x, y);
             map[y][x].setCellObject(w);
+
+            waterCount++;
         }
 
 //        printMap();
@@ -138,6 +145,9 @@ public class MapControl {
         player.setPoints(0);
         player.setHealth(100);
 
+        int playerNumber = Integer.parseInt(player.getName().substring(1, 2));
+
+        players[playerNumber] = player;
         setPlayerOnMap(player);
     }
 
@@ -175,6 +185,7 @@ public class MapControl {
 
             Player player = new Player(x, y, playerName, direction, whetherShot, coins, points, health);
 
+            clearPlayer(playerName);
             setPlayerOnMap(player);
         }
 
@@ -193,5 +204,14 @@ public class MapControl {
                 map[y][x].setCellObject(b);
             }
         }
+    }
+
+    private void clearPlayer(String playerName) {
+        int playerNumber = Integer.parseInt(playerName.substring(1, 2));
+
+        Player p = players[playerNumber];
+        map[p.getY()][p.getX()] = new Cell(p.getX(), p.getY());
+
+        players[playerNumber] = null;
     }
 }

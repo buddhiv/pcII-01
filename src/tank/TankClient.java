@@ -35,5 +35,4 @@ public class TankClient extends Thread {
             Logger.getLogger(TankClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

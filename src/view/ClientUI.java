@@ -42,12 +42,12 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
         this.cli = client;
 
         //sets the array of labels        
-        labelPanel.setSize(400,400);
+        labelPanel.setSize(400, 400);
         labelPanel.setLayout(new GridLayout(10, 10));
         labelPanel.revalidate();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                JLabel panel = new JLabel();               
+                JLabel panel = new JLabel();
 //                label.set
                 panel.setSize(100, 40);
                 panel.setOpaque(true);
@@ -56,7 +56,7 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
                 labels[i][j] = panel;
                 labelPanel.add(labels[i][j]);
             }
-        }        
+        }
 
         //set stone, water, brick counts
         jLabel7.setText("" + MapController.getBricks());
@@ -413,6 +413,9 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
                 } else if ("S".equals(map[i][j].getCellObject().toString())) {
                     labels[i][j].setBackground(Color.black);
 //                    labels[i][j].setIcon(new ImageIcon("../images/stone.jpg"));
+                } else if (map[i][j].getCellObject().toString().startsWith("P")) {
+                    labels[i][j].setBackground(Color.yellow);
+//                    labels[i][j].setIcon(new ImageIcon("../images/tank.jpg"));
                 }
             }
         }
