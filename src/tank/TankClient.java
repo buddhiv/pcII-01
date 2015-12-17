@@ -11,20 +11,18 @@ public class TankClient extends Thread {
 
     private Socket socket;
     private DataOutputStream dos;
-    private String ip = "127.0.0.1";
-    private ServerSocket serverSocket;
-    private int port = 6000;
 
     private boolean connect() {
         try {
-            socket = new Socket(ip, port);
+            socket = new Socket("127.0.0.1", 6000);
             dos = new DataOutputStream(socket.getOutputStream());
+            
+            System.out.println("Successfully connected to the server.");
+            return true;
         } catch (IOException e) {
             System.out.println("Unable to connect to the address: ");
             return false;
         }
-        System.out.println("Successfully connected to the server.");
-        return true;
     }
 
     public void run(String msg) {
@@ -36,7 +34,6 @@ public class TankClient extends Thread {
         } catch (IOException ex) {
             Logger.getLogger(TankClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
 }
