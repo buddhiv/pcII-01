@@ -7,6 +7,7 @@ package view;
 
 import javax.swing.JLabel;
 import map.MapController;
+import model.Cell;
 import observer.MapObserver;
 import tank.TankClient;
 
@@ -1092,7 +1093,7 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void updateInterface(String map[][]) {
+    public void updateInterface(Cell map[][]) {
 
     }
 }

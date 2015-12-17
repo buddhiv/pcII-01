@@ -6,6 +6,7 @@
 package observer;
 
 import java.util.ArrayList;
+import model.Cell;
 
 /**
  *
@@ -19,7 +20,7 @@ public class MapObservable {
         observers.add(observer);
     }
 
-    public void update(String map[][]) {
+    public void update(Cell map[][]) {
         for (MapObserver mapObserver : observers) {
             mapObserver.updateInterface(map);
         }

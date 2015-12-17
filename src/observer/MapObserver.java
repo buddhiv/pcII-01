@@ -5,11 +5,13 @@
  */
 package observer;
 
+import model.Cell;
+
 /**
  *
  * @author Buddhi
  */
 public interface MapObserver {
 
-    void updateInterface(String map[][]);
+    void updateInterface(Cell map[][]);
 }

@@ -13,6 +13,8 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import map.MapControl;
+import observer.MapObservable;
+import view.ClientUI;
 
 /**
  *
@@ -24,10 +26,19 @@ public class ServerConnector extends Thread {
     private Socket socket;
     private TankClient client;
     private MapControl mapControl;
+    private MapObservable mapObservable;
+    private ClientUI ui;
 
     public ServerConnector(TankClient cli) throws IOException {
         serverSocket = new ServerSocket(7000);
         mapControl = new MapControl();
+        mapObservable = new MapObservable();
+        
+//        Generate UI
+        ui = new ClientUI(cli);
+//        add client ui as an observer
+        mapObservable.addObserver(ui);
+                
         this.client = cli;
     }
 
@@ -77,5 +88,8 @@ public class ServerConnector extends Thread {
         } else if (string.startsWith("C")) {
 
         }
+        
+//        update map in the GUI
+        mapObservable.update(mapControl.getMap());
     }
 }

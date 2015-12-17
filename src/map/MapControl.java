@@ -5,13 +5,14 @@
  */
 package map;
 
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 import model.Brick;
 import model.Cell;
 import model.Player;
 import model.Stone;
 import model.Water;
+import observer.MapObservable;
+import view.ClientUI;
 
 /**
  *
