@@ -10,6 +10,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -54,13 +58,61 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
 //                label.set
                 panel.setSize(100, 40);
                 panel.setOpaque(true);
-                panel.setText("                ");
+//                panel.setText("                ");
+//                panel.setText("");
                 panel.revalidate();
                 labels[i][j] = panel;
                 labelPanel.add(labels[i][j]);
             }
         }
 
+//        File f = new File("src/images/text.txt");
+//        try {
+//            f.createNewFile();
+//        } catch (IOException ex) {
+//            Logger.getLogger(ClientUI.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        System.out.println(f.getPath());
+//        System.out.println(f.exists());
+//        ImageIcon image = new ImageIcon("src/images/grass.jpg");
+//        for (int i = 0; i < 10; i++) {
+//            for (int j = 0; j < 10; j++) {
+//                ImageIcon ii = null;
+//                if (map[i][j].getCellObject() != null) {
+////                if (map[i][j].getCellObject() == null) {
+//////                    labels[i][j].setBackground(Color.white);
+////                    ii = new ImageIcon("src/images/grass.jpg");
+////                } 
+////                else 
+//                
+//                if ("B".equals(map[i][j].getCellObject().toString())) {
+////                    labels[i][j].setBackground(Color.red);
+//                    ii = new ImageIcon("src/images/bricks.jpg");
+//                }
+////                else if ("W".equals(map[i][j].getCellObject().toString())) {
+//////                    labels[i][j].setBackground(Color.blue);
+////                    ii = new ImageIcon("src/images/water.jpg");
+////                }
+////                else 
+////                    if ("S".equals(map[i][j].getCellObject().toString())) {
+//////                    labels[i][j].setBackground(Color.black);
+////                    ii = new ImageIcon("src/images/stone.jpg");
+////                } 
+//                    else if ("C".equals(labels[i][j].getCellObject().toString())) {
+////                    labels[i][j].setBackground(Color.cyan);
+//                    ii = new ImageIcon("src/images/grass.jpg");
+//                } else if ("L".equals(labels[i][j].getCellObject().toString())) {
+////                    labels[i][j].setBackground(Color.pink);
+//                    ii = new ImageIcon("src/images/grass.jpg");
+//                } else if (labels[i][j].getCellObject().toString().startsWith("P")) {
+////                    labels[i][j].setBackground(Color.yellow);
+//                    ii = new ImageIcon("src/images/grass.jpg");
+//                }
+//
+//                labels[i][j].setIcon(ii);
+//                }
+//            }
+//        }
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -87,6 +139,7 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
         stoneCountLabel = new javax.swing.JLabel();
         waterCountLabel = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        ll = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         leftButton = new javax.swing.JButton();
         rightButton = new javax.swing.JButton();
@@ -145,15 +198,18 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
 
         jLabel10.setText(" ");
 
+        ll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bricks.jpg"))); // NOI18N
+        ll.setText("sdfsd");
+
         javax.swing.GroupLayout detailsPanelLayout = new javax.swing.GroupLayout(detailsPanel);
         detailsPanel.setLayout(detailsPanelLayout);
         detailsPanelLayout.setHorizontalGroup(
             detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(detailsPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(detailsPanelLayout.createSequentialGroup()
+                .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, detailsPanelLayout.createSequentialGroup()
                         .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -161,10 +217,14 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(brickCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(brickCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                             .addComponent(stoneCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(waterCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, detailsPanelLayout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(ll, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         detailsPanelLayout.setVerticalGroup(
@@ -188,7 +248,9 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
                 .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel10))
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addComponent(ll, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -387,6 +449,7 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel labelPanel;
     private javax.swing.JButton leftButton;
+    private javax.swing.JLabel ll;
     private javax.swing.JButton rightButton;
     private javax.swing.JButton shootButton;
     private javax.swing.JLabel stoneCountLabel;
@@ -398,29 +461,34 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
     public void updateInterface(Cell map[][]) {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
+                ImageIcon ii = null;
+//                if (map[i][j].getCellObject() != null) {
                 if (map[i][j].getCellObject() == null) {
-                    labels[i][j].setBackground(Color.white);
-//                    labels[i][j].setIcon(new ImageIcon("./images/grass.jpg"));                    
+//                    labels[i][j].setBackground(Color.white);
+                    ii = new ImageIcon("src/images/grass.jpg");
                 } else if ("B".equals(map[i][j].getCellObject().toString())) {
-                    labels[i][j].setBackground(Color.red);
-//                    labels[i][j].setIcon(new ImageIcon("./images/brick.jpg"));
+//                    labels[i][j].setBackground(Color.red);
+                    ii = new ImageIcon("src/images/bricks.jpg");
                 } else if ("W".equals(map[i][j].getCellObject().toString())) {
-                    labels[i][j].setBackground(Color.blue);
-//                    labels[i][j].setIcon(new ImageIcon("./images/water.jpg"));
+//                    labels[i][j].setBackground(Color.blue);
+                    ii = new ImageIcon("src/images/water.jpg");
                 } else if ("S".equals(map[i][j].getCellObject().toString())) {
-                    labels[i][j].setBackground(Color.black);
-//                    labels[i][j].setIcon(new ImageIcon("./images/stone.jpg"));
+//                    labels[i][j].setBackground(Color.black);
+                    ii = new ImageIcon("src/images/stone.jpg");
                 } else if ("C".equals(map[i][j].getCellObject().toString())) {
-                    labels[i][j].setBackground(Color.cyan);
-//                    labels[i][j].setIcon(new ImageIcon("./images/stone.jpg"));
+//                    labels[i][j].setBackground(Color.cyan);
+                    ii = new ImageIcon("src/images/coins.jpg");
                 } else if ("L".equals(map[i][j].getCellObject().toString())) {
-                    labels[i][j].setBackground(Color.pink);
-//                    labels[i][j].setIcon(new ImageIcon("./images/stone.jpg"));
+//                    labels[i][j].setBackground(Color.pink);
+                    ii = new ImageIcon("src/images/lifepack.jpg");
                 } else if (map[i][j].getCellObject().toString().startsWith("P")) {
-                    labels[i][j].setBackground(Color.yellow);
-//                    labels[i][j].setIcon(new ImageIcon("./images/tank.jpg"));
+//                    labels[i][j].setBackground(Color.yellow);
+                    ii = new ImageIcon("src/images/tank-up.jpg");
                 }
-                labels[i][j].revalidate();
+
+                labels[i][j].setIcon(ii);
+//                labels[i][j].revalidate();
+//                }
             }
         }
         labelPanel.revalidate();
