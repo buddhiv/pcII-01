@@ -9,22 +9,20 @@ package model;
  *
  * @author Buddhi
  */
-public class CoinPack extends CellObject{
+public class LifePack extends CellObject {
 
     private int x;
     private int y;
-    private int amount;
     private int duration;
 
-    public CoinPack() {
+    public LifePack() {
     }
 
-    public CoinPack(int x, int y, int amount, int duration) {
+    public LifePack(int x, int y, int duration) {
         this.x = x;
         this.y = y;
-        this.amount = amount;
         this.duration = duration;
-    }    
+    }
 
     /**
      * @return the x
@@ -55,20 +53,6 @@ public class CoinPack extends CellObject{
     }
 
     /**
-     * @return the amount
-     */
-    public int getAmount() {
-        return amount;
-    }
-
-    /**
-     * @param amount the amount to set
-     */
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    /**
      * @return the duration
      */
     public int getDuration() {
@@ -84,7 +68,6 @@ public class CoinPack extends CellObject{
 
     @Override
     public String toString() {
-        return "C";
-    }    
-
+        return "L";
+    }
 }

@@ -14,6 +14,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import map.MapControl;
 import map.MapController;
 import model.Cell;
 import observer.MapObserver;
@@ -30,16 +31,18 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
      */
     private JLabel[][] labels = new JLabel[10][10];
 //    private JPanel[][] labels = new JPanel[10][10];
-    TankClient cli;
+    private TankClient cli;
+    private MapControl mc;
 
     public ClientUI() {
         initComponents();
     }
 
-    public ClientUI(TankClient client) {
+    public ClientUI(TankClient client, MapControl mapControl) {
         initComponents();
 
         this.cli = client;
+        this.mc = mapControl;
 
         //sets the array of labels        
         labelPanel.setSize(400, 400);
@@ -57,12 +60,6 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
                 labelPanel.add(labels[i][j]);
             }
         }
-
-        //set stone, water, brick counts
-        jLabel7.setText("" + MapController.getBricks());
-        jLabel8.setText("" + MapController.getStones());
-        jLabel9.setText("" + MapController.getWaters());
-        jLabel10.setText("" + MapController.getCoinTotal());
 
         setLocationRelativeTo(null);
         setVisible(true);
@@ -86,9 +83,9 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        brickCountLabel = new javax.swing.JLabel();
+        stoneCountLabel = new javax.swing.JLabel();
+        waterCountLabel = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         leftButton = new javax.swing.JButton();
@@ -140,11 +137,11 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
         jLabel6.setForeground(new java.awt.Color(255, 102, 0));
         jLabel6.setText("Coin");
 
-        jLabel7.setText(" ");
+        brickCountLabel.setText(" ");
 
-        jLabel8.setText(" ");
+        stoneCountLabel.setText(" ");
 
-        jLabel9.setText(" ");
+        waterCountLabel.setText(" ");
 
         jLabel10.setText(" ");
 
@@ -164,9 +161,9 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(brickCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(stoneCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(waterCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -178,15 +175,15 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
                 .addGap(18, 18, 18)
                 .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel7))
+                    .addComponent(brickCountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel8))
+                    .addComponent(stoneCountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel9))
+                    .addComponent(waterCountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -376,6 +373,7 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel brickCountLabel;
     private javax.swing.JPanel detailsPanel;
     private javax.swing.JButton downButton;
     private javax.swing.JLabel jLabel1;
@@ -385,16 +383,15 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel labelPanel;
     private javax.swing.JButton leftButton;
     private javax.swing.JButton rightButton;
     private javax.swing.JButton shootButton;
+    private javax.swing.JLabel stoneCountLabel;
     private javax.swing.JButton upButton;
+    private javax.swing.JLabel waterCountLabel;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -403,22 +400,34 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
             for (int j = 0; j < 10; j++) {
                 if (map[i][j].getCellObject() == null) {
                     labels[i][j].setBackground(Color.white);
-//                    labels[i][j].setIcon(new ImageIcon("../images/grass.jpg"));
+//                    labels[i][j].setIcon(new ImageIcon("./images/grass.jpg"));                    
                 } else if ("B".equals(map[i][j].getCellObject().toString())) {
                     labels[i][j].setBackground(Color.red);
-//                    labels[i][j].setIcon(new ImageIcon("../images/brick.jpg"));
+//                    labels[i][j].setIcon(new ImageIcon("./images/brick.jpg"));
                 } else if ("W".equals(map[i][j].getCellObject().toString())) {
                     labels[i][j].setBackground(Color.blue);
-//                    labels[i][j].setIcon(new ImageIcon("../images/water.jpg"));
+//                    labels[i][j].setIcon(new ImageIcon("./images/water.jpg"));
                 } else if ("S".equals(map[i][j].getCellObject().toString())) {
                     labels[i][j].setBackground(Color.black);
-//                    labels[i][j].setIcon(new ImageIcon("../images/stone.jpg"));
+//                    labels[i][j].setIcon(new ImageIcon("./images/stone.jpg"));
+                } else if ("C".equals(map[i][j].getCellObject().toString())) {
+                    labels[i][j].setBackground(Color.cyan);
+//                    labels[i][j].setIcon(new ImageIcon("./images/stone.jpg"));
+                } else if ("L".equals(map[i][j].getCellObject().toString())) {
+                    labels[i][j].setBackground(Color.pink);
+//                    labels[i][j].setIcon(new ImageIcon("./images/stone.jpg"));
                 } else if (map[i][j].getCellObject().toString().startsWith("P")) {
                     labels[i][j].setBackground(Color.yellow);
-//                    labels[i][j].setIcon(new ImageIcon("../images/tank.jpg"));
+//                    labels[i][j].setIcon(new ImageIcon("./images/tank.jpg"));
                 }
+                labels[i][j].revalidate();
             }
         }
         labelPanel.revalidate();
+
+//        set stones, bricks and water count
+        brickCountLabel.setText(mc.getBrickCount() + "");
+        stoneCountLabel.setText(mc.getStoneCount() + "");
+        waterCountLabel.setText(mc.getWaterCount() + "");
     }
 }

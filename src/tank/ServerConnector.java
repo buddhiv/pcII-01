@@ -35,7 +35,7 @@ public class ServerConnector extends Thread {
         mapObservable = new MapObservable();
         
 //        Generate UI
-        ui = new ClientUI(cli);
+        ui = new ClientUI(cli,mapControl);
 //        add client ui as an observer
         mapObservable.addObserver(ui);
                 
@@ -85,9 +85,9 @@ public class ServerConnector extends Thread {
         } else if (string.startsWith("G")) {
             mapControl.updateMap(string);
         } else if (string.startsWith("L")) {
-
+            mapControl.updateLifePacks(string);
         } else if (string.startsWith("C")) {
-
+            mapControl.updateCoins(string);
         }
         
 //        update map in the GUI

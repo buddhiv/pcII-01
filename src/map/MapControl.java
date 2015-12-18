@@ -6,8 +6,12 @@
 package map;
 
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Brick;
 import model.Cell;
+import model.CoinPack;
+import model.LifePack;
 import model.Player;
 import model.Stone;
 import model.Water;
@@ -60,7 +64,7 @@ public class MapControl {
             Brick brick = new Brick(x, y);
             map[y][x].setCellObject(brick);
 
-            brickCount++;
+            setBrickCount(getBrickCount() + 1);
         }
 
 //        tokenize string for stones
@@ -76,7 +80,7 @@ public class MapControl {
             Stone stone = new Stone(x, y);
             map[y][x].setCellObject(stone);
 
-            stoneCount++;
+            setStoneCount(getStoneCount() + 1);
         }
 
 //        tokenize string for water
@@ -92,7 +96,7 @@ public class MapControl {
             Water w = new Water(x, y);
             map[y][x].setCellObject(w);
 
-            waterCount++;
+            setWaterCount(getWaterCount() + 1);
         }
 
 //        printMap();
@@ -214,4 +218,107 @@ public class MapControl {
 
         players[playerNumber] = null;
     }
+
+    /**
+     * @return the brickCount
+     */
+    public int getBrickCount() {
+        return brickCount;
+    }
+
+    /**
+     * @param brickCount the brickCount to set
+     */
+    public void setBrickCount(int brickCount) {
+        this.brickCount = brickCount;
+    }
+
+    /**
+     * @return the stoneCount
+     */
+    public int getStoneCount() {
+        return stoneCount;
+    }
+
+    /**
+     * @param stoneCount the stoneCount to set
+     */
+    public void setStoneCount(int stoneCount) {
+        this.stoneCount = stoneCount;
+    }
+
+    /**
+     * @return the waterCount
+     */
+    public int getWaterCount() {
+        return waterCount;
+    }
+
+    /**
+     * @param waterCount the waterCount to set
+     */
+    public void setWaterCount(int waterCount) {
+        this.waterCount = waterCount;
+    }
+
+    public void updateLifePacks(String string) {
+        String s = string.substring(2, string.length() - 1);
+
+        StringTokenizer tokenizer = new StringTokenizer(s, ":");
+
+        String locationString = tokenizer.nextToken();
+        String[] split = locationString.split(",");
+        int x = Integer.parseInt(split[0]);
+        int y = Integer.parseInt(split[1]);
+
+        final int duration = Integer.parseInt(tokenizer.nextToken());
+
+        final LifePack lifePack = new LifePack(x, y, duration);
+
+        Thread t = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                map[y][x].setCellObject(lifePack);
+                try {
+                    Thread.sleep(duration);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MapControl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                map[y][x].setCellObject(null);
+            }
+        });
+        t.start();
+    }
+
+    public void updateCoins(String string) {
+        String s = string.substring(2, string.length() - 1);
+
+        StringTokenizer tokenizer = new StringTokenizer(s, ":");
+
+        String locationString = tokenizer.nextToken();
+        String[] split = locationString.split(",");
+        int x = Integer.parseInt(split[0]);
+        int y = Integer.parseInt(split[1]);
+
+        final int duration = Integer.parseInt(tokenizer.nextToken());
+        int amount = Integer.parseInt(tokenizer.nextToken());
+
+        final CoinPack coinPack = new CoinPack(x, y, amount, duration);
+
+        Thread t = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                map[y][x].setCellObject(coinPack);
+                try {
+                    Thread.sleep(duration);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MapControl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                map[y][x].setCellObject(null);
+            }
+        });
+        t.start();
+    }        
 }
