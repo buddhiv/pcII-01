@@ -149,9 +149,6 @@ public class MapControl {
         player.setPoints(0);
         player.setHealth(100);
 
-        int playerNumber = Integer.parseInt(player.getName().substring(1, 2));
-
-        players[playerNumber] = player;
         setPlayerOnMap(player);
     }
 
@@ -214,9 +211,10 @@ public class MapControl {
         int playerNumber = Integer.parseInt(playerName.substring(1, 2));
 
         Player p = players[playerNumber];
-        map[p.getY()][p.getX()] = new Cell(p.getX(), p.getY());
-
-        players[playerNumber] = null;
+        if (p != null) {
+            map[p.getY()][p.getX()] = new Cell(p.getX(), p.getY());
+            players[playerNumber] = null;
+        }
     }
 
     /**
@@ -320,5 +318,5 @@ public class MapControl {
             }
         });
         t.start();
-    }        
+    }
 }

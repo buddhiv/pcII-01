@@ -18,9 +18,11 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 import map.MapControl;
 import map.MapController;
 import model.Cell;
+import model.Player;
 import observer.MapObserver;
 import tank.TankClient;
 
@@ -50,18 +52,21 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
 
         //sets the array of labels        
         labelPanel.setSize(400, 400);
+        labelPanel.setMaximumSize(labelPanel.getSize());
         labelPanel.setLayout(new GridLayout(10, 10));
         labelPanel.revalidate();
+
+        ImageIcon grass = new ImageIcon("src/src/images/grass.jpg");
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                JLabel panel = new JLabel();
-//                label.set
-                panel.setSize(100, 40);
-                panel.setOpaque(true);
-//                panel.setText("                ");
-//                panel.setText("");
-                panel.revalidate();
-                labels[i][j] = panel;
+//                create the set of jlabels
+                JLabel label = new JLabel();
+                label.setSize(100, 40);
+                label.setIcon(grass);
+                label.setBorder(new LineBorder(Color.white));
+                label.setOpaque(true);
+                label.revalidate();
+                labels[i][j] = label;
                 labelPanel.add(labels[i][j]);
             }
         }
@@ -113,6 +118,7 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
 //                }
 //            }
 //        }
+        setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -127,7 +133,7 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        labelPanel = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         detailsPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -139,13 +145,13 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
         stoneCountLabel = new javax.swing.JLabel();
         waterCountLabel = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        ll = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         leftButton = new javax.swing.JButton();
         rightButton = new javax.swing.JButton();
         downButton = new javax.swing.JButton();
         shootButton = new javax.swing.JButton();
         upButton = new javax.swing.JButton();
+        labelPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -155,21 +161,7 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Tank Game Client");
-
-        labelPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        labelPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        javax.swing.GroupLayout labelPanelLayout = new javax.swing.GroupLayout(labelPanel);
-        labelPanel.setLayout(labelPanelLayout);
-        labelPanelLayout.setHorizontalGroup(
-            labelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
-        );
-        labelPanelLayout.setVerticalGroup(
-            labelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jLabel1.setText("Tank-It Game Client v1.0");
 
         detailsPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
@@ -198,9 +190,6 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
 
         jLabel10.setText(" ");
 
-        ll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bricks.jpg"))); // NOI18N
-        ll.setText("sdfsd");
-
         javax.swing.GroupLayout detailsPanelLayout = new javax.swing.GroupLayout(detailsPanel);
         detailsPanel.setLayout(detailsPanelLayout);
         detailsPanelLayout.setHorizontalGroup(
@@ -217,14 +206,10 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(brickCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                            .addComponent(brickCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(stoneCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(waterCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, detailsPanelLayout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(ll, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         detailsPanelLayout.setVerticalGroup(
@@ -248,9 +233,7 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
                 .addGroup(detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-                .addComponent(ll, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(217, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -338,7 +321,41 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(detailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        labelPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        labelPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout labelPanelLayout = new javax.swing.GroupLayout(labelPanel);
+        labelPanel.setLayout(labelPanelLayout);
+        labelPanelLayout.setHorizontalGroup(
+            labelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 510, Short.MAX_VALUE)
+        );
+        labelPanelLayout.setVerticalGroup(
+            labelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -348,13 +365,11 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,11 +377,7 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -447,9 +458,9 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel labelPanel;
     private javax.swing.JButton leftButton;
-    private javax.swing.JLabel ll;
     private javax.swing.JButton rightButton;
     private javax.swing.JButton shootButton;
     private javax.swing.JLabel stoneCountLabel;
@@ -483,7 +494,24 @@ public class ClientUI extends javax.swing.JFrame implements MapObserver {
                     ii = new ImageIcon("src/images/lifepack.jpg");
                 } else if (map[i][j].getCellObject().toString().startsWith("P")) {
 //                    labels[i][j].setBackground(Color.yellow);
-                    ii = new ImageIcon("src/images/tank-up.jpg");
+                    Player p = (Player) map[i][j].getCellObject();
+                    int number = Integer.parseInt(Character.toString(p.getName().charAt(1)));
+                    int direction = p.getDirection();
+
+                    switch (direction) {
+                        case 0:
+                            ii = new ImageIcon("src/images/P" + number + "-tank-up.jpg");
+                            break;
+                        case 1:
+                            ii = new ImageIcon("src/images/P" + number + "-tank-right.jpg");
+                            break;
+                        case 2:
+                            ii = new ImageIcon("src/images/P" + number + "-tank-down.jpg");
+                            break;
+                        case 3:
+                            ii = new ImageIcon("src/images/P" + number + "-tank-left.jpg");
+                            break;
+                    }
                 }
 
                 labels[i][j].setIcon(ii);

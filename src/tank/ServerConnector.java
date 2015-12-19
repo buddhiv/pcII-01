@@ -33,12 +33,12 @@ public class ServerConnector extends Thread {
         serverSocket = new ServerSocket(7000);
         mapControl = new MapControl();
         mapObservable = new MapObservable();
-        
+
 //        Generate UI
-        ui = new ClientUI(cli,mapControl);
+        ui = new ClientUI(cli, mapControl);
 //        add client ui as an observer
         mapObservable.addObserver(ui);
-                
+
         this.client = cli;
     }
 
@@ -89,7 +89,7 @@ public class ServerConnector extends Thread {
         } else if (string.startsWith("C")) {
             mapControl.updateCoins(string);
         }
-        
+
 //        update map in the GUI
 //        mapObservable.update(mapControl.getMap());
     }
