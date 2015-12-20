@@ -15,8 +15,6 @@ import model.LifePack;
 import model.Player;
 import model.Stone;
 import model.Water;
-import observer.MapObservable;
-import view.ClientUI;
 
 /**
  *
